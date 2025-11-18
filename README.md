@@ -1,0 +1,2 @@
+# Akilli_Saat_Algoritmalari
+Akilli Saatlerdeki Toparlanma Algoritmaları ve karşılaştırması üzerine
