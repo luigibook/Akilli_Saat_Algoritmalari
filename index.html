@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akıllı Saatlerde Toparlanma (Recovery) Algoritmaları: Nasıl Çalışıyor?</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6;
+        }
+        .gradient-bg { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .biomarker-card {
+            transition: transform 0.3s ease;
+        }
+        .biomarker-card:hover {
+            transform: translateY(-5px);
+        }
+         {
+            body { font-size: 12px; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <div class="mb-6">
+                    <i class="fas fa-heartbeat text-6xl mb-4"></i>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    Akıllı Saatlerde Toparlanma Algoritmaları
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">
+                    Modern Wearable Teknolojilerinin Bilimsel Temelleri ve Geleceği
+                </p>
+                <div class="flex justify-center items-center space-x-4">
+                    <div class="glass-effect px-4 py-2 rounded-full">
+                        <i class="fas fa-user-md mr-2"></i>
+                        Hazırlayan: Ümit Emre Erdoğan
+                    </div>
+                    <div class="glass-effect px-4 py-2 rounded-full">
+                        <i class="fas fa-calendar mr-2"></i>
+                        2025
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- İçindekiler -->
+    <nav class="bg-white shadow-lg py-8">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-6 text-center">İçindekiler</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <a href="#giris" class="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                    <i class="fas fa-play-circle text-blue-600 mr-2"></i>
+                    1. Giriş ve Temel Kavramlar
+                </a>
+                <a href="#biomarkerlar" class="block p-4 bg-green-50 rounded-lg hover:bg-green-100 transition">
+                    <i class="fas fa-chart-line text-green-600 mr-2"></i>
+                    2. Recovery Biomarkerları
+                </a>
+                <a href="#algoritmalar" class="block p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition">
+                    <i class="fas fa-cogs text-purple-600 mr-2"></i>
+                    3. Platform Algoritmaları
+                </a>
+                <a href="#karsilastirma" class="block p-4 bg-red-50 rounded-lg hover:bg-red-100 transition">
+                    <i class="fas fa-balance-scale text-red-600 mr-2"></i>
+                    4. Platform Karşılaştırması
+                </a>
+                <a href="#cgm" class="block p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition">
+                    <i class="fas fa-syringe text-yellow-600 mr-2"></i>
+                    5. CGM Entegrasyonu
+                </a>
+                <a href="#gelecek" class="block p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition">
+                    <i class="fas fa-rocket text-indigo-600 mr-2"></i>
+                    6. Gelecek Teknolojileri
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-12">
+        <!-- Giriş -->
+        <section id="giris" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-info-circle text-blue-600 mr-3"></i>
+                    1. Giriş ve Temel Kavramlar
+                </h2>
+                
+                <div class="prose max-w-none">
+                    <p class="text-lg mb-6">
+                        Modern akıllı saatler, sporcuların ve aktif bireylerin toparlanma durumlarını değerlendirmek için 
+                        karmaşık algoritmalar kullanır. Bu algoritmalar, kalp hızı değişkenliği (HRV), uyku kalitesi, 
+                        stres seviyeleri ve diğer fizyolojik parametreleri birleştirerek, kullanıcının bir sonraki gün 
+                        ne kadar yoğun antrenman yapabileceğine dair öneriler sunar.
+                    </p>
+
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-6 mb-6">
+                        <h4 class="text-lg font-semibold mb-3">
+                            <i class="fas fa-lightbulb text-blue-600 mr-2"></i>
+                            Recovery (Toparlanma) Nedir?
+                        </h4>
+                        <p>
+                            Recovery, vücudun egzersiz sonrası homeostazisini (denge durumunu) geri kazanması sürecidir. 
+                            Bu süreç, kas onarımı, glikojen depoları yenilenmesi, hormonal dengenin sağlanması ve 
+                            sinir sistemi toparlanmasını içerir.
+                        </p>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4">Recovery Değerlendirmesinin Önemi</h3>
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-3">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                Faydaları
+                            </h4>
+                            <ul class="space-y-2">
+                                <li>• Aşırı antrenman (overtraining) riskini azaltır</li>
+                                <li>• Performans optimizasyonu sağlar</li>
+                                <li>• Yaralanma riskini minimize eder</li>
+                                <li>• Kişiselleştirilmiş antrenman planlaması</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-red-800 mb-3">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>
+                                Riskleri
+                            </h4>
+                            <ul class="space-y-2">
+                                <li>• Yanlış değerlendirme ile performans kaybı</li>
+                                <li>• Aşırı güven ile yaralanma riski</li>
+                                <li>• Teknolojiye bağımlılık</li>
+                                <li>• Subjektif hislerin göz ardı edilmesi</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Biomarkerlar -->
+        <section id="biomarkerlar" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-chart-line text-green-600 mr-3"></i>
+                    2. Recovery Biomarkerları ve Parametreleri
+                </h2>
+
+                <!-- Biomarker kategorileri -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <div class="biomarker-card bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
+                        <div class="text-3xl text-blue-600 mb-4">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Kardiyovasküler</h3>
+                        <p class="text-sm text-gray-600">HRV, Dinlenik Nabız, Kan Basıncı</p>
+                    </div>
+                    <div class="biomarker-card bg-purple-50 p-6 rounded-lg border-2 border-purple-200">
+                        <div class="text-3xl text-purple-600 mb-4">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Uyku</h3>
+                        <p class="text-sm text-gray-600">Uyku Süresi, REM, Derin Uyku</p>
+                    </div>
+                    <div class="biomarker-card bg-red-50 p-6 rounded-lg border-2 border-red-200">
+                        <div class="text-3xl text-red-600 mb-4">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Stres</h3>
+                        <p class="text-sm text-gray-600">Kortizol, ANS Aktivitesi</p>
+                    </div>
+                    <div class="biomarker-card bg-green-50 p-6 rounded-lg border-2 border-green-200">
+                        <div class="text-3xl text-green-600 mb-4">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Antrenman</h3>
+                        <p class="text-sm text-gray-600">Training Load, Recovery Time</p>
+                    </div>
+                </div>
+
+                <!-- HRV Detayları -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6">
+                        <i class="fas fa-heart text-red-500 mr-2"></i>
+                        Kalp Hızı Değişkenliği (HRV) - En Kritik Parametre
+                    </h3>
+                    
+                    <div class="bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-lg mb-6">
+                        <h4 class="text-lg font-semibold mb-4">HRV Nedir ve Neden Önemlidir?</h4>
+                        <p class="mb-4">
+                            HRV, kalp atışları arasındaki süre farklılıklarını ölçer. Yüksek HRV, otonom sinir sisteminin 
+                            esnek ve sağlıklı olduğunu gösterir. Düşük HRV ise stres, yorgunluk veya hastalık belirtisi olabilir.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-semibold mb-2">HRV Parametreleri:</h5>
+                                <ul class="space-y-2">
+                                    <li><strong>RMSSD:</strong> Ardışık RR aralıklarının ortalama kare farkı</li>
+                                    <li><strong>SDNN:</strong> RR aralıklarının standart sapması</li>
+                                    <li><strong>pNN50:</strong> %50'den fazla farklı ardışık RR yüzdesi</li>
+                                    <li><strong>HF/LF Oranı:</strong> Frekans alanı analizi</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold mb-2">Normal Değerler:</h5>
+                                <ul class="space-y-2">
+                                    <li><strong>RMSSD:</strong> >20 ms (genç yetişkinler)</li>
+                                    <li><strong>RMSSD:</strong> >15 ms (orta yaş)</li>
+                                    <li><strong>Elite atletler:</strong> 50-100+ ms</li>
+                                    <li><strong>Aşırı antrenman:</strong> <15 ms</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biomarker Öncelik Tablosu -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6">Biomarker Öncelik Sıralaması</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full bg-white border border-gray-300 rounded-lg">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-3 text-left font-semibold">Seviye</th>
+                                    <th class="px-6 py-3 text-left font-semibold">Biomarker</th>
+                                    <th class="px-6 py-3 text-left font-semibold">Validasyon</th>
+                                    <th class="px-6 py-3 text-left font-semibold">Kullanım</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="bg-green-50">
+                                    <td class="px-6 py-4">
+                                        <span class="bg-green-500 text-white px-2 py-1 rounded text-sm">Tier 1</span>
+                                    </td>
+                                    <td class="px-6 py-4 font-medium">HRV (RMSSD)</td>
+                                    <td class="px-6 py-4">%95+ literatür desteği</td>
+                                    <td class="px-6 py-4">Tüm platformlar</td>
+                                </tr>
+                                <tr class="bg-green-50">
+                                    <td class="px-6 py-4">
+                                        <span class="bg-green-500 text-white px-2 py-1 rounded text-sm">Tier 1</span>
+                                    </td>
+                                    <td class="px-6 py-4 font-medium">Uyku Kalitesi</td>
+                                    <td class="px-6 py-4">%80+ korelasyon</td>
+                                    <td class="px-6 py-4">Tüm platformlar</td>
+                                </tr>
+                                <tr class="bg-green-50">
+                                    <td class="px-6 py-4">
+                                        <span class="bg-green-500 text-white px-2 py-1 rounded text-sm">Tier 1</span>
+                                    </td>
+                                    <td class="px-6 py-4 font-medium">Subjektif Wellness</td>
+                                    <td class="px-6 py-4">En güçlü prediktör</td>
+                                    <td class="px-6 py-4">Sadece Polar</td>
+                                </tr>
+                                <tr class="bg-yellow-50">
+                                    <td class="px-6 py-4">
+                                        <span class="bg-yellow-500 text-white px-2 py-1 rounded text-sm">Tier 2</span>
+                                    </td>
+                                    <td class="px-6 py-4 font-medium">Dinlenik Nabız</td>
+                                    <td class="px-6 py-4">Yüksek pratiklik</td>
+                                    <td class="px-6 py-4">Tüm platformlar</td>
+                                </tr>
+                                <tr class="bg-yellow-50">
+                                    <td class="px-6 py-4">
+                                        <span class="bg-yellow-500 text-white px-2 py-1 rounded text-sm">Tier 2</span>
+                                    </td>
+                                    <td class="px-6 py-4 font-medium">Training Load</td>
+                                    <td class="px-6 py-4">Moderate validasyon</td>
+                                    <td class="px-6 py-4">Garmin, Polar</td>
+                                </tr>
+                                <tr class="bg-red-50">
+                                    <td class="px-6 py-4">
+                                        <span class="bg-red-500 text-white px-2 py-1 rounded text-sm">Tier 3</span>
+                                    </td>
+                                    <td class="px-6 py-4 font-medium">Vücut Sıcaklığı</td>
+                                    <td class="px-6 py-4">Sınırlı araştırma</td>
+                                    <td class="px-6 py-4">Sadece Oura</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Algoritmaları -->
+        <section id="algoritmalar" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-cogs text-purple-600 mr-3"></i>
+                    3. Platform Algoritmaları Detaylı İnceleme
+                </h2>
+
+                <!-- Garmin -->
+                <div class="mb-12">
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+                        <h3 class="text-2xl font-semibold mb-4">
+                            <i class="fas fa-watch text-blue-600 mr-2"></i>
+                            Garmin Body Battery™ ve Training Readiness
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold mb-3">Çalışma Prensibi:</h4>
+                                <ul class="space-y-2 mb-4">
+                                    <li>• <strong>Sürekli analiz:</strong> 24/7 HRV, nabız, hareket</li>
+                                    <li>• <strong>Firstbeat Analytics:</strong> Stres skoru hesaplama</li>
+                                    <li>• <strong>0-100 puan sistemi:</strong> Enerji rezervi tahmini</li>
+                                    <li>• <strong>Dinamik algoritma:</strong> Kişisel verileri öğrenir</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-3">Kullanılan Parametreler:</h4>
+                                <ul class="space-y-2 mb-4">
+                                    <li>• HRV (sürekli ölçüm)</li>
+                                    <li>• Dinlenik nabız</li>
+                                    <li>• Uyku süresi ve kalitesi</li>
+                                    <li>• Stres seviyesi (0-100)</li>
+                                    <li>• Fiziksel aktivite</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-red-100 border border-red-300 p-4 rounded-lg mt-4">
+                            <h4 class="font-semibold text-red-800 mb-2">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>
+                                Garmin'in Şeffaflık Sorunu
+                            </h4>
+                            <p class="text-red-700">
+                                Algoritma detayları açıklanmıyor, parametrelerin ağırlıkları bilinmiyor, 
+                                firmware güncellemeleri kullanıcıya bildirilmiyor. Bu durum bilimsel 
+                                araştırmalarda metodolojik sorunlar yaratıyor.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WHOOP -->
+                <div class="mb-12">
+                    <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+                        <h3 class="text-2xl font-semibold mb-4">
+                            <i class="fas fa-circle text-green-600 mr-2"></i>
+                            WHOOP Recovery Algorithm
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold mb-3">Sofistike Yaklaşım:</h4>
+                                <ul class="space-y-2 mb-4">
+                                    <li>• <strong>Gece hesaplama:</strong> Uyku sırasında analiz</li>
+                                    <li>• <strong>Ağırlıklı ortalama:</strong> Yavaş dalga uykusu öncelik</li>
+                                    <li>• <strong>Çok-parametreli:</strong> 4 ana faktör</li>
+                                    <li>• <strong>Renk kodlu:</strong> Yeşil-Sarı-Kırmızı sistem</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-3">Recovery Faktörleri:</h4>
+                                <ul class="space-y-2 mb-4">
+                                    <li>• <strong>HRV:</strong> Son derin uyku 5 dk ortalaması</li>
+                                    <li>• <strong>Dinlenik nabız:</strong> Bazal değerle karşılaştırma</li>
+                                    <li>• <strong>Solunum hızı:</strong> Uyku kalitesi göstergesi</li>
+                                    <li>• <strong>Uyku performansı:</strong> 4 alt-parametre</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-100 border border-green-300 p-4 rounded-lg mt-4">
+                            <h4 class="font-semibold text-green-800 mb-2">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                WHOOP'un Avantajları
+                            </h4>
+                            <p class="text-green-700">
+                                En detaylı uyku analizi, strain tracking ile entegrasyon, 
+                                bireysel bazal seviyeye göre yorumlama, %99 HRV doğruluğu.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Polar -->
+                <div class="mb-12">
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+                        <h3 class="text-2xl font-semibold mb-4">
+                            <i class="fas fa-star text-yellow-600 mr-2"></i>
+                            Polar Recovery Pro - En Bilimsel Yaklaşım
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold mb-3">Orthostatik Test:</h4>
+                                <ul class="space-y-2 mb-4">
+                                    <li>• <strong>2 dk yatar pozisyon</strong></li>
+                                    <li>• <strong>2 dk ayakta pozisyon</strong></li>
+                                    <li>• <strong>RMSSD parametresi</strong> (bilimsel standart)</li>
+                                    <li>• <strong>4 haftalık</strong> kişisel normale göre</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-3">Dual Yaklaşım:</h4>
+                                <ul class="space-y-2 mb-4">
+                                    <li>• <strong>Kısa dönem:</strong> Günlük binary feedback</li>
+                                    <li>• <strong>Uzun dönem:</strong> 7 günlük trend analizi</li>
+                                    <li>• <strong>Subjektif:</strong> 3 soru wellness anketi</li>
+                                    <li>• <strong>Objektif:</strong> HRV + antrenman yükü</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-100 border border-yellow-300 p-4 rounded-lg mt-4">
+                            <h4 class="font-semibold text-yellow-800 mb-2">
+                                <i class="fas fa-graduation-cap mr-2"></i>
+                                Bilimsel Validasyon
+                            </h4>
+                            <p class="text-yellow-700">
+                                22 peer-reviewed çalışmaya dayalı, Würzburg Üniversitesi validasyon çalışması, 
+                                HRV-guided training %17 daha etkili sonuç verdi.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Oura -->
+                <div class="mb-12">
+                    <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-lg">
+                        <h3 class="text-2xl font-semibold mb-4">
+                            <i class="fas fa-ring text-purple-600 mr-2"></i>
+                            Oura Ring Readiness Score
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold mb-3">Uyku-Odaklı Yaklaşım:</h4>
+                                <ul class="space-y-2 mb-4">
+                                    <li>• <strong>Gece verilerine</strong> dayalı sabah skorlaması</li>
+                                    <li>• <strong>Vücut sıcaklığı</strong> sapmaları</li>
+                                    <li>• <strong>Uyku-aktivite</strong> dengesi</li>
+                                    <li>• <strong>0-100 puan</strong> readiness sistemi</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-3">Readiness Parametreleri:</h4>
+                                <ul class="space-y-2 mb-4">
+                                    <li>• HRV dengesi (kişisel bazal)</li>
+                                    <li>• Dinlenik nabız değişimi</li>
+                                    <li>• Vücut sıcaklığı trend</li>
+                                    <li>• Uyku kalitesi ve süresi</li>
+                                    <li>• Önceki gün aktivite dengesi</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Karşılaştırması -->
+        <section id="karsilastirma" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-balance-scale text-red-600 mr-3"></i>
+                    4. Platform Karşılaştırması ve Değerlendirme
+                </h2>
+
+                <!-- Karşılaştırma Tablosu -->
+                <div class="overflow-x-auto mb-12">
+                    <table class="w-full bg-white border border-gray-300 rounded-lg">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-semibold">Platform</th>
+                                <th class="px-4 py-3 text-left font-semibold">Güçlü Yanlar</th>
+                                <th class="px-4 py-3 text-left font-semibold">Zayıf Yanlar</th>
+                                <th class="px-4 py-3 text-left font-semibold">Bilimsel Skor</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="bg-blue-50">
+                                <td class="px-4 py-4 font-semibold">
+                                    <i class="fas fa-watch text-blue-600 mr-2"></i>
+                                    Garmin
+                                </td>
+                                <td class="px-4 py-4">
+                                    <ul class="text-sm space-y-1">
+                                        <li>• Sürekli monitoring</li>
+                                        <li>• Geniş ekosistem</li>
+                                        <li>• Pratik kullanım</li>
+                                    </ul>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <ul class="text-sm space-y-1">
+                                        <li>• Şeffaflık eksikliği</li>
+                                        <li>• Black-box algoritma</li>
+                                        <li>• Subjektif veri yok</li>
+                                    </ul>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <span class="bg-yellow-500 text-white px-3 py-1 rounded">6/10</span>
+                                </td>
+                            </tr>
+                            <tr class="bg-green-50">
+                                <td class="px-4 py-4 font-semibold">
+                                    <i class="fas fa-circle text-green-600 mr-2"></i>
+                                    WHOOP
+                                </td>
+                                <td class="px-4 py-4">
+                                    <ul class="text-sm space-y-1">
+                                        <li>• Detaylı uyku analizi</li>
+                                        <li>• %99 HRV doğruluğu</li>
+                                        <li>• Strain tracking</li>
+                                    </ul>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <ul class="text-sm space-y-1">
+                                        <li>• Pahalı abonelik</li>
+                                        <li>• Kısa batarya ömrü</li>
+                                        <li>• Proprietary algoritma</li>
+                                    </ul>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <span class="bg-green-500 text-white px-3 py-1 rounded">7/10</span>
+                                </td>
+                            </tr>
+                            <tr class="bg-yellow-50">
+                                <td class="px-4 py-4 font-semibold">
+                                    <i class="fas fa-star text-yellow-600 mr-2"></i>
+                                    Polar
+                                </td>
+                                <td class="px-4 py-4">
+                                    <ul class="text-sm space-y-1">
+                                        <li>• Bilimsel validasyon</li>
+                                        <li>• Orthostatik test</li>
+                                        <li>• Subjektif wellness</li>
+                                    </ul>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <ul class="text-sm space-y-1">
+                                        <li>• Günlük test gereksinimi</li>
+                                        <li>• Karmaşık kullanım</li>
+                                        <li>• Sınırlı ekosistem</li>
+                                    </ul>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <span class="bg-green-600 text-white px-3 py-1 rounded">9/10</span>
+                                </td>
+                            </tr>
+                            <tr class="bg-purple-50">
+                                <td class="px-4 py-4 font-semibold">
+                                    <i class="fas fa-ring text-purple-600 mr-2"></i>
+                                    Oura
+                                </td>
+                                <td class="px-4 py-4">
+                                    <ul class="text-sm space-y-1">
+                                        <li>• Konforlu kullanım</li>
+                                        <li>• Uzun batarya</li>
+                                        <li>• Sıcaklık takibi</li>
+                                    </ul>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <ul class="text-sm space-y-1">
+                                        <li>• Zayıf egzersiz tracking</li>
+                                        <li>• Sınırlı parametre</li>
+                                        <li>• Uyku odaklı yaklaşım</li>
+                                    </ul>
+                                </td>
+                                <td class="px-4 py-4">
+                                    <span class="bg-orange-500 text-white px-3 py-1 rounded">7/10</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Doğruluk Analizi Grafiği -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6">Platform Doğruluk Analizi</h3>
+                    <div style="height: 400px;">
+                        <canvas id="accuracyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Öneri Matrisi -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-green-50 p-6 rounded-lg border-2 border-green-200">
+                        <h4 class="text-lg font-semibold text-green-800 mb-4">
+                            <i class="fas fa-trophy mr-2"></i>
+                            Elit Sporcular İçin
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="bg-yellow-100 p-3 rounded">
+                                <strong>1. Polar Recovery Pro</strong> - En bilimsel yaklaşım
+                            </div>
+                            <div class="bg-green-100 p-3 rounded">
+                                <strong>2. WHOOP</strong> - Detaylı analiz ve strain tracking
+                            </div>
+                            <div class="bg-blue-100 p-3 rounded">
+                                <strong>3. Garmin</strong> - Kapsamlı ekosistem
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
+                        <h4 class="text-lg font-semibold text-blue-800 mb-4">
+                            <i class="fas fa-running mr-2"></i>
+                            Rekreasyonel Sporcular İçin
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="bg-blue-100 p-3 rounded">
+                                <strong>1. Garmin</strong> - Kullanım kolaylığı ve pratiklik
+                            </div>
+                            <div class="bg-purple-100 p-3 rounded">
+                                <strong>2. Oura</strong> - Konfor ve uyku odaklı yaklaşım
+                            </div>
+                            <div class="bg-green-100 p-3 rounded">
+                                <strong>3. WHOOP</strong> - Detaylı veri isteyenler için
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CGM Entegrasyonu -->
+        <section id="cgm" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-syringe text-yellow-600 mr-3"></i>
+                    5. CGM Entegrasyonu ve Glükoz Temelli Recovery
+                </h2>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg mb-8">
+                    <h3 class="text-xl font-semibold mb-4">
+                        <i class="fas fa-info-circle text-yellow-600 mr-2"></i>
+                        CGM (Continuous Glucose Monitoring) Nedir?
+                    </h3>
+                    <p class="mb-4">
+                        CGM, vücudun kan şekeri seviyelerini 24 saat boyunca sürekli izleyen sensörlerdir. 
+                        Başlangıçta diyabet hastalar için geliştirilmiş olan bu teknoloji, artık sporcularda 
+                        metabolik durumu izlemek ve training readiness değerlendirmesi için kullanılıyor.
+                    </p>
+                </div>
+
+                <!-- CGM Training Readiness Parametreleri -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6">CGM ile Training Readiness Parametreleri</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="space-y-6">
+                            <div class="bg-blue-50 p-6 rounded-lg">
+                                <h4 class="font-semibold text-blue-800 mb-3">
+                                    <i class="fas fa-chart-line mr-2"></i>
+                                    Glisemik Varyabilite
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><strong>MAGE:</strong> <36.0 mg/dL normal, >46.8 mg/dL risk</li>
+                                    <li><strong>MODD:</strong> <12.6 mg/dL normal, >16.2 mg/dL risk</li>
+                                    <li><strong>SD:</strong> <16.2 mg/dL normal, >19.8 mg/dL risk</li>
+                                    <li><strong>Anlamı:</strong> Düşük varyabilite = İyi metabolik kontrol</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-green-50 p-6 rounded-lg">
+                                <h4 class="font-semibold text-green-800 mb-3">
+                                    <i class="fas fa-clock mr-2"></i>
+                                    Time in Range (TIR)
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><strong>Euglisemi:</strong> %96.3+ (72-144 mg/dL)</li>
+                                    <li><strong>Hipoglisemi:</strong> <%1.3 (<72 mg/dL)</li>
+                                    <li><strong>Hiperglisemi:</strong> <%2.4 (>144 mg/dL)</li>
+                                    <li><strong>Risk:</strong> Hipoglisemi >%5 = Enerji yetersizliği</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="bg-purple-50 p-6 rounded-lg">
+                                <h4 class="font-semibold text-purple-800 mb-3">
+                                    <i class="fas fa-moon mr-2"></i>
+                                    Gece Glükoz Profili
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><strong>Normal gece:</strong> 91.8 ± 5.4 mg/dL</li>
+                                    <li><strong>Gündüz:</strong> 102.6 ± 5.4 mg/dL</li>
+                                    <li><strong>İdeal:</strong> Düşük varyabilite (MAGE <25)</li>
+                                    <li><strong>Recovery:</strong> Stabil gece trendi = İyi toparlanma</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-red-50 p-6 rounded-lg">
+                                <h4 class="font-semibold text-red-800 mb-3">
+                                    <i class="fas fa-dumbbell mr-2"></i>
+                                    Egzersiz Cevabı
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><strong>Yüksek intensite:</strong> 20-40 mg/dL artış normal</li>
+                                    <li><strong>Recovery:</strong> 2 saat içinde bazale dönüş</li>
+                                    <li><strong>Risk sinyali:</strong> Glükoz artışı olmayan egzersiz</li>
+                                    <li><strong>Overtraining:</strong> 3+ saat yavaş normalleşme</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CGM Training Readiness Protokolü -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6">Pratik CGM Training Readiness Protokolü</h3>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Yeşil Zone -->
+                        <div class="bg-green-50 border-2 border-green-200 p-6 rounded-lg">
+                            <div class="text-center mb-4">
+                                <div class="bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-check text-2xl"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-green-800">YEŞİL ZONE</h4>
+                                <p class="text-sm text-green-600">Antrenman Hazır</p>
+                            </div>
+                            <ul class="space-y-2 text-sm">
+                                <li>• MAGE <35 mg/dL (son 3 gün)</li>
+                                <li>• Time in Range >95%</li>
+                                <li>• Gece hipoglisemi <%1</li>
+                                <li>• Sabah glukoz 85-105 mg/dL</li>
+                                <li><strong>→ Normal intensite OK</strong></li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Sarı Zone -->
+                        <div class="bg-yellow-50 border-2 border-yellow-200 p-6 rounded-lg">
+                            <div class="text-center mb-4">
+                                <div class="bg-yellow-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-exclamation text-2xl"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-yellow-800">SARI ZONE</h4>
+                                <p class="text-sm text-yellow-600">Dikkatli Antrenman</p>
+                            </div>
+                            <ul class="space-y-2 text-sm">
+                                <li>• MAGE 35-45 mg/dL</li>
+                                <li>• Time in Range 90-95%</li>
+                                <li>• Hafif gece hipoglisemi %1-3</li>
+                                <li>• Recovery yavaş</li>
+                                <li><strong>→ Intensite %10 azalt</strong></li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Kırmızı Zone -->
+                        <div class="bg-red-50 border-2 border-red-200 p-6 rounded-lg">
+                            <div class="text-center mb-4">
+                                <div class="bg-red-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-times text-2xl"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-red-800">KIRMIZI ZONE</h4>
+                                <p class="text-sm text-red-600">Recovery Gerekli</p>
+                            </div>
+                            <ul class="space-y-2 text-sm">
+                                <li>• MAGE >50 mg/dL (3+ gün)</li>
+                                <li>• Time in Range <%90</li>
+                                <li>• Gece hipoglisemi >%5</li>
+                                <li>• Sabah glukoz anormal</li>
+                                <li><strong>→ Yüksek intensite DURDUR</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mevcut CGM Teknolojileri -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Sporculara Yönelik CGM Teknolojileri</h3>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
+                            <h4 class="font-semibold text-blue-800 mb-3">
+                                <i class="fas fa-heartbeat mr-2"></i>
+                                Abbott Libre Sense
+                            </h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><strong>İlk spor CGM'i</strong></li>
+                                <li><strong>Maliyet:</strong> ~€60/ay</li>
+                                <li><strong>Süre:</strong> 14 gün</li>
+                                <li><strong>MARD:</strong> %8.9</li>
+                                <li><strong>Platform:</strong> Supersapiens</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-green-50 p-6 rounded-lg border-2 border-green-200">
+                            <h4 class="font-semibold text-green-800 mb-3">
+                                <i class="fas fa-chart-area mr-2"></i>
+                                Dexcom G7/Stelo
+                            </h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><strong>En doğru CGM</strong></li>
+                                <li><strong>Maliyet:</strong> $89/ay (Stelo)</li>
+                                <li><strong>Süre:</strong> 10 gün</li>
+                                <li><strong>MARD:</strong> %8.2</li>
+                                <li><strong>Reçetesiz:</strong> Stelo modeli</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-6 rounded-lg border-2 border-purple-200">
+                            <h4 class="font-semibold text-purple-800 mb-3">
+                                <i class="fas fa-flask mr-2"></i>
+                                Geliştirilmekte
+                            </h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><strong>Non-invasive CGM</strong></li>
+                                <li><strong>Akıllı saat entegreli</strong></li>
+                                <li><strong>Multi-biomarker</strong></li>
+                                <li><strong>AI-powered analiz</strong></li>
+                                <li><strong>2026-2028 hedefi</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gelecek Teknolojileri -->
+        <section id="gelecek" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-rocket text-indigo-600 mr-3"></i>
+                    6. Gelecek Teknolojileri ve Doğruluğu Artırma Yöntemleri
+                </h2>
+
+                <!-- Yakın Gelecek -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6 text-blue-600">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        Yakın Gelecek (2025-2027)
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                                <h4 class="font-semibold text-blue-800 mb-3">
+                                    <i class="fas fa-tint mr-2"></i>
+                                    Ter Analizi Sensörleri
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><strong>Laktik asit:</strong> Anaerobik eşik göstergesi</li>
+                                    <li><strong>Kortizol:</strong> Stres ve recovery hormonu</li>
+                                    <li><strong>Glükoz:</strong> Metabolik durum (terden)</li>
+                                    <li><strong>Elektrolitler:</strong> Na+, K+, Cl- dengesi</li>
+                                    <li><strong>pH değeri:</strong> Asit-baz dengesi</li>
+                                </ul>
+                                <div class="mt-3 text-xs text-blue-600">
+                                    <strong>Durum:</strong> Prototip aşamasında, 2025-2026 ticari kullanım
+                                </div>
+                            </div>
+                            
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                                <h4 class="font-semibold text-green-800 mb-3">
+                                    <i class="fas fa-heartbeat mr-2"></i>
+                                    Gelişmiş HRV Analizi
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><strong>Contact-free ölçüm:</strong> Radar tabanlı</li>
+                                    <li><strong>Solunumsal sinus aritmisi</strong> detayı</li>
+                                    <li><strong>Arteryal sertlik</strong> değerlendirmesi</li>
+                                    <li><strong>Kalp atış hacmi</strong> tahmini</li>
+                                    <li><strong>Real-time AI analizi</strong></li>
+                                </ul>
+                                <div class="mt-3 text-xs text-green-600">
+                                    <strong>Durum:</strong> R&D aşamasında, 2026-2027 entegrasyon
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+                                <h4 class="font-semibold text-purple-800 mb-3">
+                                    <i class="fas fa-brain mr-2"></i>
+                                    Nörofizyolojik Monitörler
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><strong>BDNF (Brain-Derived Neurotrophic Factor):</strong> Nöral recovery</li>
+                                    <li><strong>Cognitive readiness:</strong> Mental yorgunluk tespiti</li>
+                                    <li><strong>EEG tabanlı:</strong> Uyku kalitesi detayı</li>
+                                    <li><strong>Motivation states:</strong> Motivasyon durumu analizi</li>
+                                    <li><strong>Attention metrics:</strong> Dikkat ve odaklanma</li>
+                                </ul>
+                                <div class="mt-3 text-xs text-purple-600">
+                                    <strong>Durum:</strong> Araştırma aşamasında, 2027+ hedef
+                                </div>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500">
+                                <h4 class="font-semibold text-yellow-800 mb-3">
+                                    <i class="fas fa-thermometer-half mr-2"></i>
+                                    Çevresel Sensör Entegrasyonu
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><strong>Hava kalitesi:</strong> PM2.5, CO2, O3 seviyeleri</li>
+                                    <li><strong>UV radyasyonu:</strong> Güneş etkisi</li>
+                                    <li><strong>Barometrik basınç:</strong> Yükseklik adaptasyonu</li>
+                                    <li><strong>Sıcaklık/nem:</strong> Termoregülasyon etkisi</li>
+                                    <li><strong>Circadian rhythm:</strong> Işık etkisi analizi</li>
+                                </ul>
+                                <div class="mt-3 text-xs text-yellow-600">
+                                    <strong>Durum:</strong> Pilot uygulamalar, 2025-2026 yaygınlaşma
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orta Vade -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6 text-green-600">
+                        <i class="fas fa-microscope mr-2"></i>
+                        Orta Vade (2027-2030): Devrimsel Teknolojiler
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-red-50 p-6 rounded-lg border border-red-200">
+                            <h4 class="font-semibold text-red-800 mb-4">
+                                <i class="fas fa-magic mr-2"></i>
+                                Akıllı Dövmeler
+                            </h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• <strong>Intradermal sensörler</strong></li>
+                                <li>• <strong>14-30 gün</strong> sürekli ölçüm</li>
+                                <li>• <strong>Multi-biomarker:</strong> Glükoz, laktat, üre</li>
+                                <li>• <strong>Kablosuz</strong> veri aktarımı</li>
+                                <li>• <strong>%95+</strong> doğruluk hedefi</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                            <h4 class="font-semibold text-green-800 mb-4">
+                                <i class="fas fa-band-aid mr-2"></i>
+                                Microneedle Patches
+                            </h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• <strong>Deri altı</strong> interstisyel sıvı</li>
+                                <li>• <strong>Hormonal panel:</strong> Kortizol, testosteron</li>
+                                <li>• <strong>İnflamatuar:</strong> IL-6, TNF-α</li>
+                                <li>• <strong>Metabolik:</strong> Laktat, glükoz, üre</li>
+                                <li>• <strong>7-14 gün</strong> kullanım</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                            <h4 class="font-semibold text-blue-800 mb-4">
+                                <i class="fas fa-wave-square mr-2"></i>
+                                Elektromanyetik Sensörler
+                            </h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• <strong>Non-invasive</strong> real-time monitoring</li>
+                                <li>• <strong>Vücut sıvıları</strong> analizi</li>
+                                <li>• <strong>Hidrasyon</strong> durumu</li>
+                                <li>• <strong>Kas oksijanasyonu</strong></li>
+                                <li>• <strong>Metabolik rate</strong> hesaplama</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Uzak Gelecek -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6 text-purple-600">
+                        <i class="fas fa-satellite mr-2"></i>
+                        Uzak Gelecek (2030+): Bilim Kurgu → Gerçek
+                    </h3>
+                    
+                    <div class="bg-gradient-to-r from-purple-50 to-indigo-50 p-8 rounded-lg border-2 border-purple-200">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="font-semibold text-purple-800 mb-4">
+                                    <i class="fas fa-dna mr-2"></i>
+                                    Moleküler Seviye Monitoring
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li>• <strong>Exosomes analizi:</strong> Hücresel stres göstergeleri</li>
+                                    <li>• <strong>microRNA profiling:</strong> Gen ekspresyon değişiklikleri</li>
+                                    <li>• <strong>Proteomik paneller:</strong> Protein düzeyinde analiz</li>
+                                    <li>• <strong>Metabolomik imzalar:</strong> Metabolit profilleri</li>
+                                    <li>• <strong>Epigenetik markerlar:</strong> Gen aktivasyon durumu</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-purple-800 mb-4">
+                                    <i class="fas fa-robot mr-2"></i>
+                                    AI-Powered Digital Twins
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li>• <strong>Virtual metabolic model:</strong> Her sporcu için özel</li>
+                                    <li>• <strong>Predictive simulation:</strong> Recovery süreçleri</li>
+                                    <li>• <strong>Personalized intervention:</strong> Otomatik öneriler</li>
+                                    <li>• <strong>Real-time optimization:</strong> Anlık ayarlamalar</li>
+                                    <li>• <strong>Quantum computing:</strong> Karmaşık hesaplamalar</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doğruluğu Artırma Stratejileri -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-6 text-orange-600">
+                        <i class="fas fa-bullseye mr-2"></i>
+                        Mevcut Sistemlerin Doğruluğunu Artırma Yöntemleri
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Seviye 1 -->
+                        <div class="bg-green-50 p-6 rounded-lg border-2 border-green-200">
+                            <h4 class="font-semibold text-green-800 mb-4">
+                                <i class="fas fa-level-up-alt mr-2"></i>
+                                Seviye 1: Temel İyileştirme
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="bg-white p-3 rounded border-l-4 border-green-400">
+                                    <strong>Maliyet:</strong> $500-1000<br>
+                                    <strong>Süre:</strong> 1-3 ay setup<br>
+                                    <strong>ROI:</strong> %30-50 doğruluk artışı
+                                </div>
+                                <ul class="space-y-2 text-sm">
+                                    <li>• <strong>Polar H10</strong> + HRV4Training ($150)</li>
+                                    <li>• <strong>Abbott Libre Sense</strong> CGM ($60/ay)</li>
+                                    <li>• <strong>Custom wellness app</strong> ($200 dev)</li>
+                                    <li>• <strong>Garmin Connect API</strong> integration ($100)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Seviye 2 -->
+                        <div class="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
+                            <h4 class="font-semibold text-blue-800 mb-4">
+                                <i class="fas fa-rocket mr-2"></i>
+                                Seviye 2: Teknoloji Entegrasyonu
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="bg-white p-3 rounded border-l-4 border-blue-400">
+                                    <strong>Maliyet:</strong> $2000-3000<br>
+                                    <strong>Süre:</strong> 6-12 ay<br>
+                                    <strong>ROI:</strong> %60-80 doğruluk artışı
+                                </div>
+                                <ul class="space-y-2 text-sm">
+                                    <li>• <strong>Multi-biomarker</strong> sweat sensor ($500)</li>
+                                    <li>• <strong>Advanced sleep</strong> monitoring ($300)</li>
+                                    <li>• <strong>AI-powered</strong> data fusion ($1000)</li>
+                                    <li>• <strong>Professional</strong> consultation ($500)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Seviye 3 -->
+                        <div class="bg-purple-50 p-6 rounded-lg border-2 border-purple-200">
+                            <h4 class="font-semibold text-purple-800 mb-4">
+                                <i class="fas fa-brain mr-2"></i>
+                                Seviye 3: AI-Enhanced System
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="bg-white p-3 rounded border-l-4 border-purple-400">
+                                    <strong>Maliyet:</strong> $5000+<br>
+                                    <strong>Süre:</strong> 12+ ay<br>
+                                    <strong>ROI:</strong> %80-95 doğruluk artışı
+                                </div>
+                                <ul class="space-y-2 text-sm">
+                                    <li>• <strong>Machine Learning</strong> modeli eğitimi</li>
+                                    <li>• <strong>Kişisel bazal</strong> değerler belirlenmesi</li>
+                                    <li>• <strong>Predictive recovery</strong> modelleri</li>
+                                    <li>• <strong>Multi-platform</strong> data fusion</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gelecek Roadmap -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Teknoloji Gelişim Roadmap'i</h3>
+                    <div style="height: 400px;">
+                        <canvas id="roadmapChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sonuç ve Öneriler -->
+        <section class="mb-16">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-6 text-center">
+                    <i class="fas fa-lightbulb mr-3"></i>
+                    Sonuç ve Pratik Öneriler
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            Ana Bulgular
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-star text-yellow-400 mr-2 mt-1"></i>
+                                <span><strong>Polar Recovery Pro</strong> bilimsel validasyon açısından en güvenilir sistem</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-exclamation-triangle text-yellow-400 mr-2 mt-1"></i>
+                                <span><strong>Garmin'in şeffaflık eksikliği</strong> büyük bir problem</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-brain text-yellow-400 mr-2 mt-1"></i>
+                                <span><strong>Subjektif wellness</strong> en güçlü recovery prediktörü</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-heart text-yellow-400 mr-2 mt-1"></i>
+                                <span><strong>HRV (RMSSD)</strong> en kritik objektif parametre</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">
+                            <i class="fas fa-road mr-2"></i>
+                            Gelecek Öngörüleri
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-tint text-blue-400 mr-2 mt-1"></i>
+                                <span><strong>Ter analizi sensörleri</strong> 2025-2026'da yaygınlaşacak</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-syringe text-blue-400 mr-2 mt-1"></i>
+                                <span><strong>CGM entegrasyonu</strong> recovery doğruluğunu %50+ artıracak</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-robot text-blue-400 mr-2 mt-1"></i>
+                                <span><strong>AI-powered sistemler</strong> kişiselleştirilmiş öneriler sunacak</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-dna text-blue-400 mr-2 mt-1"></i>
+                                <span><strong>Moleküler seviye</strong> monitoring 2030+ dönemde</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 rounded-lg p-6 mt-8">
+                    <h3 class="text-xl font-semibold mb-4 text-center">
+                        <i class="fas fa-trophy mr-2"></i>
+                        En İyi Yaklaşım
+                    </h3>
+                    <p class="text-center text-lg">
+                        <strong>Multiple biomarkerlerin entegre analiziyle</strong> bireysel referans aralıklarının belirlenmesi 
+                        ve <strong>uzun dönemli trend takibi</strong>. Bu sistematik yaklaşım, hem kısa vadeli performans 
+                        optimizasyonu hem de uzun vadeli sağlık korunması için kritik öneme sahiptir.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Referanslar -->
+        <section class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-book mr-3"></i>
+                    Bilimsel Referanslar
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 text-blue-600">HRV ve Recovery Araştırmaları</h3>
+                        <ol class="space-y-2 text-sm">
+                            <li>1. Manser, P., et al. (2021). Can reactivity of heart rate variability be a potential biomarker and monitoring tool to promote healthy aging? A systematic review with meta-analyses. <em>Frontiers in Physiology</em>, 12, 686129.</li>
+                            <li>2. Aeschbacher, S., et al. (2017). Heart rate, heart rate variability and inflammatory biomarkers among young and healthy adults. <em>Annals of Medicine</em>, 49(1), 32-41.</li>
+                            <li>3. Tekin, R.T., et al. (2025). The relationship between resting heart rate variability and sportive performance, sleep and body awareness in soccer players. <em>BMC Sports Science Medicine and Rehabilitation</em>, 17, 1-12.</li>
+                            <li>4. Young, H.A., & Benton, D. (2018). Heart-rate variability: a biomarker to study the influence of nutrition on physiological and psychological health? <em>Behavioural Pharmacology</em>, 29(2-3), 140-151.</li>
+                            <li>5. Fernandes, R.A., et al. (2013). Resting heart rate: its correlations and potential for screening metabolic dysfunctions in adolescents. <em>BMC Pediatrics</em>, 13, 48.</li>
+                        </ol>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 text-green-600">Biomarkerlar ve Spor Performansı</h3>
+                        <ol class="space-y-2 text-sm">
+                            <li>6. Lee, E.C., et al. (2017). Biomarkers in sports and exercise: tracking health, performance, and recovery in athletes. <em>Journal of Strength and Conditioning Research</em>, 31(10), 2920-2937.</li>
+                            <li>7. Schelling, X., et al. (2015). Using testosterone and cortisol as biomarker for training individualization in elite basketball: A 4-year follow-up study. <em>Journal of Strength and Conditioning Research</em>, 29(2), 368-378.</li>
+                            <li>8. Anderson, T., et al. (2016). Cortisol and testosterone dynamics following exhaustive endurance exercise. <em>European Journal of Applied Physiology</em>, 116(8), 1503-1509.</li>
+                            <li>9. Palacios Le Blé, G., et al. (2015). Biomarkers of physical activity and exercise. <em>Nutrición Hospitalaria</em>, 31(3), 237-244.</li>
+                            <li>10. Popovic, B., et al. (2019). Response to endurance exercise stress: focus on catabolic/anabolic interplay between cortisol, testosterone, and sex hormone binding globulin in professional athletes. <em>Journal of Medical Biochemistry</em>, 38(1), 6-12.</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 text-purple-600">CGM ve Glukoz Monitoring</h3>
+                        <ol class="space-y-2 text-sm">
+                            <li>11. Flockhart, M., & Larsen, F.J. (2024). Continuous glucose monitoring in endurance athletes: interpretation and relevance of measurements for improving performance and health. <em>Sports Medicine</em>, 54(2), 247-255.</li>
+                            <li>12. Kulawiec, D.G., et al. (2021). Continuous glucose monitoring to measure metabolic impact and recovery in sub-elite endurance athletes. <em>Biomedical Signal Processing and Control</em>, 70, 103050.</li>
+                            <li>13. Holzer, R., et al. (2022). Continuous glucose monitoring in healthy adults—possible applications in health care, wellness, and sports. <em>Sensors</em>, 22(5), 2030.</li>
+                        </ol>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 text-red-600">Teknoloji Validasyonu</h3>
+                        <ol class="space-y-2 text-sm">
+                            <li>14. Evenson, K.R., & Spade, C.L. (2020). Review of validity and reliability of Garmin activity trackers. <em>Journal for the Measurement of Physical Behaviour</em>, 3(2), 170-185.</li>
+                            <li>15. Doherty, C., et al. (2025). Readiness, recovery, and strain: an evaluation of composite health scores in consumer wearables. <em>Translational Exercise Biomedicine</em>, 2(1), 1-12.</li>
+                            <li>16. Polar Research and Technology. (2019). Polar Recovery Pro White Paper. Retrieved from: https://www.polar.com/img/static/whitepapers/pdf/polar-recovery-pro-white-paper.pdf</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold mb-4 text-gray-800">Gelecek Teknolojileri ve İnnovasyonlar</h3>
+                    <ol class="space-y-2 text-sm text-gray-700">
+                        <li>17. Seshadri, D.R., et al. (2019). Wearable sensors for monitoring the physiological and biochemical profile of the athlete. <em>NPJ Digital Medicine</em>, 2, 72.</li>
+                        <li>18. Yang, G., et al. (2024). Wearable device for continuous sweat lactate monitoring in sports: a narrative review. <em>Frontiers in Physiology</em>, 15, 1376801.</li>
+                        <li>19. Saha, T., et al. (2023). Wearable electrochemical glucose sensors in diabetes management: a comprehensive review. <em>Chemical Reviews</em>, 123(9), 5854-5940.</li>
+                        <li>20. Chowdhury, T.I., et al. (2025). A Review of Cognitive Readiness, Wearable Devices, and Prospects. <em>arXiv preprint</em> arXiv:2501.03537.</li>
+                    </ol>
+                </div>
+                
+                <div class="mt-6 text-center text-gray-600">
+                    <p class="text-sm">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Bu referanslar, 2025 yılı itibariyle mevcut olan en güncel bilimsel literatürü yansıtmaktadır. 
+                        Teknoloji hızla geliştiği için, güncel araştırmaları takip etmek önemlidir.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-4">
+                <i class="fas fa-heartbeat text-3xl mb-2"></i>
+            </div>
+            <p class="text-lg mb-2">
+                <strong>Hazırlayan:</strong> Ümit Emre Erdoğan
+            </p>
+            <p class="text-sm opacity-75">
+                Bu çalışma, modern akıllı saat teknolojilerinin bilimsel temellerini anlamak ve 
+                gelecekteki gelişmeleri öngörmek amacıyla hazırlanmıştır.
+            </p>
+            <div class="mt-4 text-xs opacity-50">
+                © 2025 - Akademik ve eğitim amaçlı kullanım için hazırlanmıştır.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Platform Doğruluk Analizi Grafiği
+        const accuracyCtx = document.getElementById('accuracyChart').getContext('2d');
+        new Chart(accuracyCtx, {
+            type: 'radar',
+            data: {
+                labels: ['HRV Doğruluğu', 'Uyku Analizi', 'Subjektif Veri', 'Bilimsel Validasyon', 'Şeffaflık', 'Pratiklik'],
+                datasets: [{
+                    label: 'Garmin',
+                    data: [7, 6, 2, 4, 3, 9],
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderColor: 'rgb(59, 130, 246)',
+                    borderWidth: 2
+                }, {
+                    label: 'WHOOP',
+                    data: [9, 9, 3, 6, 4, 6],
+                    backgroundColor: 'rgba(34, 197, 94, 0.2)',
+                    borderColor: 'rgb(34, 197, 94)',
+                    borderWidth: 2
+                }, {
+                    label: 'Polar',
+                    data: [8, 7, 9, 9, 8, 5],
+                    backgroundColor: 'rgba(251, 191, 36, 0.2)',
+                    borderColor: 'rgb(251, 191, 36)',
+                    borderWidth: 2
+                }, {
+                    label: 'Oura',
+                    data: [8, 8, 2, 6, 5, 8],
+                    backgroundColor: 'rgba(147, 51, 234, 0.2)',
+                    borderColor: 'rgb(147, 51, 234)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Platform Karşılaştırması (10 üzerinden)',
+                        font: {
+                            size: 16,
+                            weight: 'bold'
+                        }
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 10,
+                        ticks: {
+                            stepSize: 2
+                        }
+                    }
+                }
+            }
+        });
+
+        // Teknoloji Gelişim Roadmap Grafiği
+        const roadmapCtx = document.getElementById('roadmapChart').getContext('2d');
+        new Chart(roadmapCtx, {
+            type: 'line',
+            data: {
+                labels: ['2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032'],
+                datasets: [{
+                    label: 'CGM Entegrasyonu',
+                    data: [30, 60, 80, 90, 95, 98, 99, 99],
+                    backgroundColor: 'rgba(251, 191, 36, 0.2)',
+                    borderColor: 'rgb(251, 191, 36)',
+                    borderWidth: 3,
+                    fill: true
+                }, {
+                    label: 'Ter Analizi Sensörleri',
+                    data: [10, 40, 70, 85, 90, 93, 95, 97],
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderColor: 'rgb(59, 130, 246)',
+                    borderWidth: 3,
+                    fill: true
+                }, {
+                    label: 'AI-Powered Analysis',
+                    data: [20, 35, 55, 75, 85, 90, 94, 97],
+                    backgroundColor: 'rgba(34, 197, 94, 0.2)',
+                    borderColor: 'rgb(34, 197, 94)',
+                    borderWidth: 3,
+                    fill: true
+                }, {
+                    label: 'Moleküler Seviye',
+                    data: [5, 10, 15, 25, 40, 60, 75, 85],
+                    backgroundColor: 'rgba(147, 51, 234, 0.2)',
+                    borderColor: 'rgb(147, 51, 234)',
+                    borderWidth: 3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Teknoloji Adoption Roadmap (%)',
+                        font: {
+                            size: 16,
+                            weight: 'bold'
+                        }
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Yaygınlaşma Oranı (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Yıl'
+                        }
+                    }
+                },
+                elements: {
+                    point: {
+                        radius: 4,
+                        hoverRadius: 6
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDrjV8q6PmFcerUfsEF1IqT%2Fv%2F5POwed51oMwwuH%2BvAKaTNESmiyHwmUtVz5Zk%2B9yOJp%2BsGEXTx0%2Fx28jjKnvA92CpBM474O8pDOZePuVqAOd0CI313tWsRIddMv6JP76lJ8Cr2oxLWYFtWThlUnS18DRIzpMwZ%2BNoOE8zugFb9XztsJ2w8k6fCQsXwpNTm9Mu1tnLTHIwkrPY%2BQpSTBZg74ogHW6EQuih29qb3gSL72r9wu5acneR8wPlyGpRBYIC5yzbg00ymt1smXaa5fVZP23oelhQ%2FdosKSHYjOQfzA80WniNjjAu6205mWd7Xr0ZupdZDCE3kX92%2F5zcS6g4cPsCOamW%2BxjHbXkfVCYh%2B0rIaiOZDKwgduF3dUrbkWHAowb8YXmgv59knAUGGuwwaa0ZVPLw2Gb9w%2F9Gy21UvDyhvqgb6ojVUCdekPFu3QBUYACsurWAyLpRMX8CFlTGlRTveMdRfrFEPd8oywDZ3zNO3c8DAjApiSkxZEQTd73kJtUac5eos5AuFyx6GrSRos%3D";
+        window.__genspark_locale = "en-US";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDrjV8q6PmFcerUfsEF1IqT/v/5POwed51oMwwuH+vAKaTNESmiyHwmUtVz5Zk+9yOJp+sGEXTx0/x28jjKnvA92CpBM474O8pDOZePuVqAOd0CI313tWsRIddMv6JP76lJ8Cr2oxLWYFtWThlUnS18DRIzpMwZ+NoOE8zugFb9XztsJ2w8k6fCQsXwpNTm9Mu1tnLTHIwkrPY+QpSTBZg74ogHW6EQuih29qb3gSL72r9wu5acneR8wPlyGpRBYIC5yzbg00ymt1smXaa5fVZP23oelhQ/dosKSHYjOQfzA80WniNjjAu6205mWd7Xr0ZupdZDCE3kX92/5zcS6g4cPsCOamW+xjHbXkfVCYh+0rIaiOZDKwgduF3dUrbkWHAowb8YXmgv59knAUGGuwwaa0ZVPLw2Gb9w/9Gy21UvDyhvqgb6ojVUCdekPFu3QBUYACsurWAyLpRMX8CFlTGlRTveMdRfrFEPd8oywDZ3zNO3c8DAjApiSkxZEQTd73kJtUac5eos5AuFyx6GrSRos=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
